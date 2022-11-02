@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./dist/app"
+    "start": "node ./dist/app",
+    "decagon": "nodemon ./dist/app"
   },
+  
   "dependencies": {
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
