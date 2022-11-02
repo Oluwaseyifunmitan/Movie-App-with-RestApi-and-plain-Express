@@ -18,6 +18,7 @@ auth.post("/register", (req, res, next) => {
     res.render("Register");
 });
 auth.get("/*", (req, res, next) => {
+    console.log("hello world");
     try {
         throw "error";
     }

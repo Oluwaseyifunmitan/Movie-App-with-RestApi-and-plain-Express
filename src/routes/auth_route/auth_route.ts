@@ -23,6 +23,7 @@ auth.post("/register", (req, res, next) => {
 });
 
 auth.get("/*", (req, res, next) => {
+  console.log("hello world");
   try {
     throw "error";
   } catch (error) {
