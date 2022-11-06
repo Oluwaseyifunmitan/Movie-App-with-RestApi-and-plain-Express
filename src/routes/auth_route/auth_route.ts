@@ -1,26 +1,14 @@
 import express from "express";
-import {
-  add_movie,
-  delete_movie,
-  update_movie,
-} from "../../controllers/movie-controller/movie";
+import { Login, Register } from "../../controllers/auth-controller/auth";
+
 const auth = express.Router();
 
-auth.get("/login", (req, res, next) => {
-  res.render("Login");
-});
 
-auth.post("/login", (req, res, next) => {
-  res.render("Login");
-});
+auth.get("/login",Login);
+auth.post("/login",Login);
 
-auth.get("/register", (req, res, next) => {
-  res.render("Register");
-});
-
-auth.post("/register", (req, res, next) => {
-  res.render("Register");
-});
+auth.get("/register", Register);
+auth.post("/register", Register);
 
 auth.get("/*", (req, res, next) => {
   console.log("hello world");

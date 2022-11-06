@@ -1,17 +1,19 @@
 import express from "express";
 import {
-  add_movie,
-  delete_movie,
-  update_movie,
+  createMovie,
+  deleteMovie,
+  getMovies,
+  updateMovie,
 } from "../../controllers/movie-controller/movie";
+
 const movie = express.Router();
 
+movie.get("/", getMovies);
 
+movie.post("/create", createMovie);
 
-movie.post("/", add_movie);
+movie.put("/update/:id", updateMovie);
 
-movie.put("/", update_movie);
-
-movie.delete("/", delete_movie);
+movie.delete("/movies/:id", deleteMovie);
 
 export default movie;

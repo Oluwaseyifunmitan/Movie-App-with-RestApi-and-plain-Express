@@ -1,14 +1,18 @@
 import express from "express";
+import {
+  createUser,
+  deleteUser,
+  getUsers,
+  updateUser,
+} from "../../controllers/user-controller/user";
 const user = express.Router();
 
+user.get("/", getUsers);
 
-user.get("/", )
+user.post("/", createUser);
 
-user.post("/", );
+user.put("/:email", updateUser);
 
-user.put("/", );
- 
-user.delete("/", );
-
+user.delete("/:email", deleteUser);
 
 export default user;

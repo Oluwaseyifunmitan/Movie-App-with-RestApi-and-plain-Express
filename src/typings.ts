@@ -1,14 +1,21 @@
-interface MovieInterface{
-    title: string,
-    description : string,
-    image: string,
-    price: number,
-    id: string
+interface MovieInterface {
+  title: string;
+  description: string;
+  image: string;
+  price: number;
+  id: string;
 }
 
-interface UserInterface{
-    fullname: string,
-   username: string,
-   email: string, // no duplicates allowed.
-   password: string
+interface Register {
+  id?: string;
+  fullname: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface Login {
+    email: string;
+    password: string;
 }
