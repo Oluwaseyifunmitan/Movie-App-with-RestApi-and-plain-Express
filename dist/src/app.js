@@ -28,6 +28,7 @@ app.use("/auth", auth_route_1.default);
 app.use("/movie", movie_route_1.default);
 app.use("/user", user_route_1.default);
 app.get("/", (req, res) => {
+    console.log(req.headers);
     res.render("home");
 });
 app.listen(process.env.PORT, () => {

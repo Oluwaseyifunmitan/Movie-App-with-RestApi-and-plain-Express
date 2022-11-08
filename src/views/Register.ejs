@@ -14,7 +14,7 @@
     <title>Signup page</title>
   </head>
   <body style="position: relative; z-index: 100;">
-    <div class="container" style="position:absolute; top:30px">
+    <div class="container" style="position: relative; top:30px">
       <div class="row">
         <div class="col-md-12">
           <nav class="nav nav-pills nav-fill">
@@ -28,32 +28,32 @@
     <div
       class="login-container d-flex align-items-center justify-content-center"
     >
-      <form action="" class="login-form text-center">
+      <form id="register-form" class="login-form text-center">
         <h1 class="mb-5 font-weight-light text-uppercase">Signup</h1>
         <div class="form-group">
           <input
-            type="text"
+            type="text" onkeyup="saveDetails(this)" name="firstname"
             class="form-control rounded-pill form-control-lg"
             placeholder="firstname"
           />
         </div>
         <div class="form-group">
           <input
-            type="text"
+            type="text" onkeyup="saveDetails(this)" name="lastname"
             class="form-control rounded-pill form-control-lg"
             placeholder="lastname"
           />
         </div>
         <div class="form-group">
           <input
-            type="email"
+            type="email" onkeyup="saveDetails(this)" name="email"
             class="form-control rounded-pill form-control-lg"
             placeholder="email"
           />
         </div>
         <div class="form-group">
           <input
-            type="password"
+            type="password" onkeyup="saveDetails(this)" name="password"
             class="form-control rounded-pill form-control-lg"
             placeholder="Password"
           />
@@ -71,4 +71,5 @@
       </form>
     </div>
   </body>
+  <script src="/script/index.js"></script>
 </html>

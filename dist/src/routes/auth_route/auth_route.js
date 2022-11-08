@@ -10,6 +10,7 @@ auth.get("/login", auth_1.Login);
 auth.post("/login", auth_1.Login);
 auth.get("/register", auth_1.Register);
 auth.post("/register", auth_1.Register);
+auth.get("/logout", auth_1.Logout);
 auth.get("/*", (req, res, next) => {
     console.log("hello world");
     try {

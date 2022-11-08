@@ -30,6 +30,7 @@ app.use("/movie", movie);
 app.use("/user", user);
 
 app.get("/", (req, res) => {
+  console.log(req.headers);
   res.render("home");
 });
 

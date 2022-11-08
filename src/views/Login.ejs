@@ -13,8 +13,8 @@
       crossorigin="anonymous"
     />
   </head>
-  <body style="position: relative;">
-    <div class="container" style="position: relative; top:20px">
+  <body style="position: relative; z-index: 100;">
+    <div class="container" style="position: relative; top:30px">
       <div class="row">
         <div class="col-md-12">
           <nav class="nav nav-pills nav-fill">
@@ -28,19 +28,19 @@
     <div
       class="login-container d-flex align-items-center justify-content-center"
     >
-      <form action="" class="login-form text-center">
+      <form id="login-form" class="login-form text-center">
         <h1 class="mb-5 font-weight-light text-uppercase">Login</h1>
         <div class="form-group">
-          <input type="text" class="form-control rounded-pill form-control-lg" placeholder="Username" />
+          <input onkeyup="saveInput(this)" type="emaiil" name="email" class="form-control rounded-pill form-control-lg" placeholder="email" />
         </div>
         <div class="form-group">
-          <input type="password" class="form-control rounded-pill form-control-lg" placeholder="Password" />
+          <input type="password" name="password"  onkeyup="saveInput(this)" class="form-control rounded-pill form-control-lg" placeholder="Password" />
         </div>
         <div
           class="forgot-link d-flex align-items-center justify-content-between"
         >
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="remember" />
+            <input type="checkbox" onchange="saveInput(this)" name="checkbox" class="form-check-input" id="remember" />
             <label for="remember">Remember Password</lasbel>
           </div>
           <a href="#">Forgot Password?</a>
@@ -50,4 +50,5 @@
       </form>
     </div>
   </body>
+  <script src="/script/index.js"></script>
 </html>

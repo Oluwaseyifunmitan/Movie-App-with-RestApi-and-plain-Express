@@ -1,30 +1,41 @@
 [
   {
-    "fullname": "john doe",
-    "username": "Yourusername",
-    "email": "jane@example.com",
-    "password": "4e61e9d2f3c80cd1d84beca4b35b010eb81735b5d583f7992b5aaecb85879875be929db20ec3b246918a6215a0d0bc917aa7615cdf9b22f527a7b7dce2792224",
-    "Movies": []
-  },
-  {
-    "fullname": "john doe",
-    "username": "Yourusername",
-    "email": "jne@example.com",
-    "password": "4e61e9d2f3c80cd1d84beca4b35b010eb81735b5d583f7992b5aaecb85879875be929db20ec3b246918a6215a0d0bc917aa7615cdf9b22f527a7b7dce2792224",
-    "Movies": []
+    "fullname": "Makinde Seyi",
+    "username": "Oluwaseyifunmitan",
+    "email": "oluwaseyi@example.com",
+    "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
+    "Movies": [],
+    "_id": "fc3e3510f3ac881911c60cab89a55b268064446616760a3741ba31c73e62d357"
   },
   {
     "fullname": "john doe",
     "username": "Yourusername",
     "email": "john@example.com",
     "password": "4e61e9d2f3c80cd1d84beca4b35b010eb81735b5d583f7992b5aaecb85879875be929db20ec3b246918a6215a0d0bc917aa7615cdf9b22f527a7b7dce2792224",
-    "Movies": []
+    "Movies": [],
+    "_id": "578e5e9187b63cc7987f113e1abc29d12de398d28a983a11d4f04ac58caf9050"
   },
   {
-    "fullname": "john doe",
+    "fullname": "jane doe",
     "username": "Yourusername",
-    "email": "jhn@example.com",
+    "email": "jane@example.com",
     "password": "4e61e9d2f3c80cd1d84beca4b35b010eb81735b5d583f7992b5aaecb85879875be929db20ec3b246918a6215a0d0bc917aa7615cdf9b22f527a7b7dce2792224",
-    "Movies": []
+    "Movies": [],
+    "_id": "dd236954ea6f4cc9b13940972406d5f37a646a1784da674261cc1801a91d0d87"
+  },
+  {
+    "firstname": "jane",
+    "lastname": "doe",
+    "email": "josh@example.com",
+    "password": "4e61e9d2f3c80cd1d84beca4b35b010eb81735b5d583f7992b5aaecb85879875be929db20ec3b246918a6215a0d0bc917aa7615cdf9b22f527a7b7dce2792224",
+    "_id": "44d5c9a4df21a9534ddabf66e9da4db9ab12bdb7c278113dadfe42b8e7f4f45a"
+  },
+  {
+    "fullname": "olivia Nwachukwu",
+    "username": "olivia",
+    "email": "olivia@example.com",
+    "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
+    "Movies": [],
+    "_id": "15695b8f879a25c3e6266967252ecde55179f5da38cf24e09bb27a5cdb967dcb"
   }
 ]
