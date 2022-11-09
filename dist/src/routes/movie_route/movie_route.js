@@ -9,5 +9,5 @@ const movie = express_1.default.Router();
 movie.get("/", movie_1.getMovies);
 movie.post("/create", movie_1.createMovie);
 movie.put("/update/:id", movie_1.updateMovie);
-movie.delete("/movies/:id", movie_1.deleteMovie);
+movie.delete("/delete/:id", movie_1.deleteMovie);
 exports.default = movie;

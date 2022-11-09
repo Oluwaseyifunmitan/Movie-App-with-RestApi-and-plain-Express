@@ -14,6 +14,6 @@ movie.post("/create", createMovie);
 
 movie.put("/update/:id", updateMovie);
 
-movie.delete("/movies/:id", deleteMovie);
+movie.delete("/delete/:id", deleteMovie);
 
 export default movie;
