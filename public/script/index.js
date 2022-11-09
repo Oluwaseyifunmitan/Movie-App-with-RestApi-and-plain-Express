@@ -1,4 +1,3 @@
-alert("hello world");
 let logindetails = {};
 let registerDetails = {};
 document

@@ -6,7 +6,6 @@ import { genPassword } from "../../../Utils/passwordUtils";
 import saveFile from "../../models/user/user";
 import { genToken } from "../../../Utils/tokenUtils";
 import generateId from "../../../Utils/genId";
-import { createNoSubstitutionTemplateLiteral } from "typescript";
 
 const users = require(path.resolve(process.cwd(), "database", "database.json"));
 
