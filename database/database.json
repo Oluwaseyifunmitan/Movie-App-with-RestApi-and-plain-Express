@@ -1,26 +1,62 @@
 [
   {
-    "fullname": "olivia Nwachukwu",
-    "username": "olivia",
-    "email": "olivia@example.com",
-    "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
-    "Movies": [],
-    "_id": "a278221a055f37931266a2ffdf2a65c77a9441418472a243f5bdb44d558cb55d"
-  },
-  {
-    "fullname": "john doe",
-    "username": "john",
-    "email": "john@example.com",
-    "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
-    "Movies": [],
-    "_id": "740253f5fb2b487abbc481df92ab34420a7e6c2316c24e5a422d116e7c11adee"
-  },
-  {
     "fullname": "jane doe",
     "username": "john",
     "email": "jane@example.com",
     "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
-    "Movies": [],
-    "_id": "4ecfa4f5005874b9ba799322fffc1401ee80766e338fdd3285c3ff3ffb5e2360"
+    "Movies": [
+      {
+        "title": "Behind her eyes",
+        "description": "suspense at its peeks.",
+        "image": "https://mymovieimage.com",
+        "price": 474400,
+        "id": "databaseId1"
+      },
+      {
+        "title": "Behind her eyes",
+        "description": "suspense at its peeks.",
+        "image": "https://mymovieimage.com",
+        "price": 50000,
+        "id": "databaseId2"
+      },
+      {
+        "title": "walk in the light with sheyi",
+        "description": "the gods are angry with decagon naira.",
+        "image": "https://mymovieimage.com",
+        "price": 464400,
+        "id": "databaseId3"
+      }
+    ],
+    "_id": "4b3ae1fa17fac1e7c4b1cd0e24734216d53afd3254527181d7acaaae28365a20"
+  },
+  {
+    "fullname": "jane doe",
+    "username": "john",
+    "email": "john@example.com",
+    "password": "5875e722f61d7a42bfff653eb1eb7127cd5b3a12f74680801c38594d16881f04862165ec61c729fe7e0ec863dc0d2afad2e1cec2101b21851b50031116abc255",
+    "Movies": [
+      {
+        "title": "Behind her eyes",
+        "description": "suspense at its peeks.",
+        "image": "https://mymovieimage.com",
+        "price": 474400,
+        "id": "databaseId1"
+      },
+      {
+        "title": "Behind her eyes bjhbjh",
+        "description": "suspense at its peeks.",
+        "image": "https://mymovieimage.com",
+        "price": 50000,
+        "id": "databaseId2"
+      },
+      {
+        "title": "walk in the light with sheyi",
+        "description": "the gods are angry with decagon naira.",
+        "image": "https://mymovieimage.com",
+        "price": 464400,
+        "id": "databaseId3"
+      }
+    ],
+    "_id": "4b3ae1fa17fac1e7c4b1cd0e24734216d53afd3254527181d7acaaae28365a20"
   }
 ]

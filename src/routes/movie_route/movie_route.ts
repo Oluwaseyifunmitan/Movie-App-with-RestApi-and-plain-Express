@@ -4,11 +4,14 @@ import {
   deleteMovie,
   getMovies,
   updateMovie,
+  getMovie,
 } from "../../controllers/movie-controller/movie";
 
 const movie = express.Router();
 
 movie.get("/", getMovies);
+
+movie.get("/:id", getMovie);
 
 movie.post("/create", createMovie);
 

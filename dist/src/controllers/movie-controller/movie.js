@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMovie = exports.updateMovie = exports.createMovie = exports.getMovies = void 0;
+exports.deleteMovie = exports.updateMovie = exports.createMovie = exports.getMovie = exports.getMovies = void 0;
 const path_1 = __importDefault(require("path"));
 const user_1 = __importDefault(require("../../models/user/user"));
 const users = require(path_1.default.resolve(process.cwd(), "database", "database.json"));
@@ -20,7 +20,8 @@ const getMovies = (req, res) => {
     try {
         let movies = [];
         users.map((data) => {
-            if ((data === null || data === void 0 ? void 0 : data.Movies.length) > 0) {
+            var _a;
+            if (((_a = data === null || data === void 0 ? void 0 : data.Movies) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                 data.Movies.map((file) => {
                     movies.unshift(file);
                 });
@@ -34,9 +35,26 @@ const getMovies = (req, res) => {
     }
 };
 exports.getMovies = getMovies;
+const getMovie = (req, res) => {
+    try {
+        let movie;
+        const id = req.params.id;
+        users.forEach((user) => {
+            let gothis = user.Movies.find((data) => data.id == id);
+            if (gothis) {
+                movie = gothis;
+            }
+        });
+        res.json({ code: 200, movie });
+    }
+    catch (error) {
+        res.status(400).json(error);
+    }
+};
+exports.getMovie = getMovie;
 const createMovie = (req, res) => {
     var _a;
-    //post requuset
+    //post request
     //email, movieObjext
     const { email, Movie } = req.body;
     console.log(email, Movie);
@@ -64,44 +82,47 @@ const createMovie = (req, res) => {
     }
 };
 exports.createMovie = createMovie;
-// export const updateMovie = (req: Request, res: Response) => {
-//   const { email, data, id } = req.body;
-//   console.log(req.params.id, email, data);
-//   let movies = req.body;
-//   const updateMovie = users.filter((file: any) => {
-//     return file.email === email;
-//   });
-//   console.log(updateMovie);
 const updateMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, title, description, image, price } = yield req.body;
-        const id = req.params.id;
-        const userMovieToEdit = users === null || users === void 0 ? void 0 : users.filter((userData) => {
-            return userData.email === email;
+        // console.log(req.body);
+        const { email, Movie } = req.body;
+        let movieId = req.params.id;
+        // console.log(req.params.id, email, data);
+        let user = users.filter((file) => {
+            return file.email === email;
         });
-        const findMovieById = userMovieToEdit.Movies.find((movie) => movie.id === id);
-        if (!findMovieById) {
-            res.status(400).json({ message: "Movie not found" });
+        if (user.length > 0) {
+            user[0].Movies.forEach((mov) => {
+                if (mov.id === movieId) {
+                    Movie.title ? (mov.title = Movie === null || Movie === void 0 ? void 0 : Movie.title) : null;
+                    Movie.price ? (mov.price = Movie === null || Movie === void 0 ? void 0 : Movie.price) : null;
+                    Movie.image ? (mov.image = Movie === null || Movie === void 0 ? void 0 : Movie.image) : null;
+                    Movie.description ? (mov.description = Movie === null || Movie === void 0 ? void 0 : Movie.description) : null;
+                    console.log(mov);
+                }
+            });
+            let newDatabase = users.map((person) => {
+                if (person.email == email) {
+                    return user[0];
+                }
+                else {
+                    return person;
+                }
+            });
+            (0, user_1.default)(newDatabase);
+            res.json(newDatabase);
         }
-        const bodyData = {
-            title: title | findMovieById.title,
-            description: description | findMovieById.description,
-            image: image | findMovieById.image,
-            price: price | findMovieById.price,
-        };
-        const index = userMovieToEdit.Movies.findIndex((eachmovie) => eachmovie.id === id);
-        userMovieToEdit.Movies[index] = Object.assign({ findMovieById }, bodyData);
-        (0, user_1.default)(userMovieToEdit.Movies[index]);
-        return res.status(200).json(userMovieToEdit.Movies[index]);
+        else {
+            res.json({ code: 400, message: "no such users" });
+        }
     }
     catch (error) {
+        console.log(error);
         res.status(400).json(error);
     }
 });
 exports.updateMovie = updateMovie;
 const deleteMovie = (req, res) => {
-    // const movieIndex = movies.find((val) => val.id === Number(req.params.id));
-    // movies.slice(movieIndex, 1);
-    // res.status(200).json({ message: "Deleted" });
+    const id = req.params.id;
 };
 exports.deleteMovie = deleteMovie;

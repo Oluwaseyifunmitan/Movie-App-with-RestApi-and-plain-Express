@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const movie_1 = require("../../controllers/movie-controller/movie");
 const movie = express_1.default.Router();
 movie.get("/", movie_1.getMovies);
+movie.get("/:id", movie_1.getMovie);
 movie.post("/create", movie_1.createMovie);
 movie.put("/update/:id", movie_1.updateMovie);
 movie.delete("/delete/:id", movie_1.deleteMovie);

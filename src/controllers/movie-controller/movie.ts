@@ -1,6 +1,9 @@
 import path from "path";
 import saveFile from "../../models/user/user";
 import { Request, Response } from "express";
+import generateId from "../../../Utils/genId";
+import user from "../../routes/user_route/user_route";
+import movie from "../../routes/movie_route/movie_route";
 
 const users = require(path.resolve(process.cwd(), "database", "database.json"));
 
@@ -8,7 +11,7 @@ export const getMovies = (req: Request, res: Response) => {
   try {
     let movies: any[] = [];
     users.map((data: any) => {
-      if (data?.Movies.length > 0) {
+      if (data?.Movies?.length > 0) {
         data.Movies.map((file: any) => {
           movies.unshift(file);
         });
@@ -21,8 +24,25 @@ export const getMovies = (req: Request, res: Response) => {
   }
 };
 
+export const getMovie = (req: Request, res: Response) => {
+  try {
+    let movie;
+    const id = req.params.id;
+    users.forEach((user: any) => {
+      let gothis = user.Movies.find((data: any) => data.id == id);
+
+      if (gothis) {
+        movie = gothis;
+      }
+    });
+    res.json({ code: 200, movie });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 export const createMovie = (req: Request, res: Response) => {
-  //post requuset
+  //post request
   //email, movieObjext
   const { email, Movie } = req.body;
   console.log(email, Movie);
@@ -53,48 +73,47 @@ export const createMovie = (req: Request, res: Response) => {
   }
 };
 
-// export const updateMovie = (req: Request, res: Response) => {
-//   const { email, data, id } = req.body;
-
-//   console.log(req.params.id, email, data);
-//   let movies = req.body;
-//   const updateMovie = users.filter((file: any) => {
-//     return file.email === email;
-//   });
-
-//   console.log(updateMovie);
 export const updateMovie = async (req: Request, res: Response) => {
   try {
-    const { email, title, description, image, price } = await req.body;
-    const id = req.params.id;
-    const userMovieToEdit = users?.filter((userData: any) => {
-      return userData.email === email;
+    // console.log(req.body);
+    const { email, Movie } = req.body;
+    let movieId = req.params.id;
+
+    // console.log(req.params.id, email, data);
+
+    let user = users.filter((file: any) => {
+      return file.email === email;
     });
-    const findMovieById = userMovieToEdit.Movies.find(
-      (movie: any) => movie.id === id
-    );
-    if (!findMovieById) {
-      res.status(400).json({ message: "Movie not found" });
+
+    if (user.length > 0) {
+      user[0].Movies.forEach((mov: any) => {
+        if (mov.id === movieId) {
+          Movie.title ? (mov.title = Movie?.title) : null;
+          Movie.price ? (mov.price = Movie?.price) : null;
+          Movie.image ? (mov.image = Movie?.image) : null;
+          Movie.description ? (mov.description = Movie?.description) : null;
+          console.log(mov);
+        }
+      });
+
+      let newDatabase = users.map((person: any) => {
+        if (person.email == email) {
+          return user[0];
+        } else {
+          return person;
+        }
+      });
+      saveFile(newDatabase);
+      res.json(newDatabase);
+    } else {
+      res.json({ code: 400, message: "no such users" });
     }
-    const bodyData = {
-      title: title | findMovieById.title,
-      description: description | findMovieById.description,
-      image: image | findMovieById.image,
-      price: price | findMovieById.price,
-    };
-    const index = userMovieToEdit.Movies.findIndex(
-      (eachmovie: any) => eachmovie.id === id
-    );
-    userMovieToEdit.Movies[index] = { findMovieById, ...bodyData };
-    saveFile(userMovieToEdit.Movies[index]);
-    return res.status(200).json(userMovieToEdit.Movies[index]);
   } catch (error) {
+    console.log(error);
     res.status(400).json(error);
   }
 };
 
 export const deleteMovie = (req: Request, res: Response) => {
-  // const movieIndex = movies.find((val) => val.id === Number(req.params.id));
-  // movies.slice(movieIndex, 1);
-  // res.status(200).json({ message: "Deleted" });
+  const id = req.params.id;
 };
