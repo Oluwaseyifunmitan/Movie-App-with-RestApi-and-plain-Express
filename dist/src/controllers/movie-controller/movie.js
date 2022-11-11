@@ -40,9 +40,9 @@ const getMovie = (req, res) => {
         let movie;
         const id = req.params.id;
         users.forEach((user) => {
-            let gothis = user.Movies.find((data) => data.id == id);
-            if (gothis) {
-                movie = gothis;
+            let gotThis = user.Movies.find((data) => data.id == id);
+            if (gotThis) {
+                movie = gotThis;
             }
         });
         res.json({ code: 200, movie });
@@ -123,6 +123,20 @@ const updateMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.updateMovie = updateMovie;
 const deleteMovie = (req, res) => {
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
+        console.log(id);
+        let newDatabase = users.map((user) => {
+            var _a;
+            const newMovies = (_a = user === null || user === void 0 ? void 0 : user.Movies) === null || _a === void 0 ? void 0 : _a.filter((file) => file.id != id);
+            user.Movies = newMovies;
+            return user;
+        });
+        (0, user_1.default)(newDatabase);
+        res.status(200).json({ message: "movie deleted" });
+    }
+    catch (error) {
+        res.status(400).json({ message: "not deleted" });
+    }
 };
 exports.deleteMovie = deleteMovie;

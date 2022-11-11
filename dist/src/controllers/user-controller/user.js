@@ -28,8 +28,13 @@ const updateUser = (req, res) => {
 };
 exports.updateUser = updateUser;
 const deleteUser = (req, res) => {
-    // const userIndex = users.find((val) => val.id === Number(req.params.id));
-    // users.slice(userIndex,1);
-    // res.status(200).json({message: 'Deleted'});
+    try {
+        const deleteUser = users.filter((user) => user.email != req.body.emails);
+        res.status(200).json({ message: "user deleted" });
+        (0, user_1.default)(deleteUser);
+    }
+    catch (error) {
+        res.status(400).json({ message: "user nor deleted" });
+    }
 };
 exports.deleteUser = deleteUser;

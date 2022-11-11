@@ -5,18 +5,18 @@ import { Request, Response } from "express";
 const users = require(path.resolve(process.cwd(), "database", "database.json"));
 // console.log(users);
 
-export const getUsers = (req:Request, res:Response ) => {
+export const getUsers = (req: Request, res: Response) => {
   res.status(200).json(users);
 };
 
-export const createUser = (req:Request, res:Response ) => {
+export const createUser = (req: Request, res: Response) => {
   const user = req.body;
   users.push(user);
   res.status(200).json({ message: "user created" });
   saveFile(users);
 };
 
-export const updateUser = (req:Request, res:Response ) => {
+export const updateUser = (req: Request, res: Response) => {
   const userUpdated = users.filter(
     (file: any) => file.email === req.params.email
   );
@@ -26,8 +26,14 @@ export const updateUser = (req:Request, res:Response ) => {
   saveFile(users);
 };
 
-export const deleteUser = (req:Request, res:Response ) => {
-  // const userIndex = users.find((val) => val.id === Number(req.params.id));
-  // users.slice(userIndex,1);
-  // res.status(200).json({message: 'Deleted'});
+export const deleteUser = (req: Request, res: Response) => {
+  try {
+    const deleteUser = users.filter(
+      (user: any) => user.email != req.body.emails
+    );
+    res.status(200).json({ message: "user deleted" });
+    saveFile(deleteUser);
+  } catch (error) {
+    res.status(400).json({ message: "user nor deleted" });
+  }
 };

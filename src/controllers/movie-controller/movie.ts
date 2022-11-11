@@ -29,10 +29,10 @@ export const getMovie = (req: Request, res: Response) => {
     let movie;
     const id = req.params.id;
     users.forEach((user: any) => {
-      let gothis = user.Movies.find((data: any) => data.id == id);
+      let gotThis = user.Movies.find((data: any) => data.id == id);
 
-      if (gothis) {
-        movie = gothis;
+      if (gotThis) {
+        movie = gotThis;
       }
     });
     res.json({ code: 200, movie });
@@ -115,5 +115,17 @@ export const updateMovie = async (req: Request, res: Response) => {
 };
 
 export const deleteMovie = (req: Request, res: Response) => {
-  const id = req.params.id;
+  try {
+    const id = req.params.id;
+    console.log(id);
+    let newDatabase = users.map((user: any) => {
+      const newMovies = user?.Movies?.filter((file: any) => file.id != id);
+      user.Movies = newMovies;
+      return user;
+    });
+    saveFile(newDatabase);
+    res.status(200).json({ message: "movie deleted" });
+  } catch (error) {
+    res.status(400).json({ message: "not deleted" });
+  }
 };
