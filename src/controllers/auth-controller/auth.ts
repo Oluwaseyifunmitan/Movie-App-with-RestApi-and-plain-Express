@@ -16,16 +16,18 @@ export const Login = async (req: Request, res: Response) => {
     // console.log(req.body);
     const { email, password } = req.body;
     const loggedIn: any = users.filter((user: any) => user.email == email);
-    //hash the incomming password
-    // compare the new hased password with the old one of the user in the database
     if (loggedIn.length > 0) {
       let hash = await genPassword(password);
+      let _id = loggedIn[0]._id;
       if (hash == loggedIn[0].password) {
-        let token = genToken({ email: email, _id: loggedIn[0]._id });
+        let token = await genToken({ email: email, _id: _id });
         res.cookie("token", token); // set a cokie during login
-        return res.send("you have successfully logged in");
+
+        return res
+          .status(200)
+          .json({ code: 200, message: "you have successfully logged in" });
       } else {
-        return res.send("not logged in");
+        return res.status(400).json({ code: 400, message: "not logged in" });
       }
     } else {
       return res.send("no user with this account");
@@ -52,6 +54,7 @@ export const Register = async (req: Request, res: Response) => {
         let user = req.body;
         let _id = new generateId().gen();
         user._id = _id;
+        user.Movies = [];
         users.push(user);
         saveFile(users);
         // genearate Id for users
@@ -59,7 +62,7 @@ export const Register = async (req: Request, res: Response) => {
         //console.log(token);
         res.cookie("token", token);
 
-        return res.status(200).json({ code: 200, user });
+        return res.status(201).json({ code: 201, message: "please login" });
       }
     } catch (error) {
       console.log(error);

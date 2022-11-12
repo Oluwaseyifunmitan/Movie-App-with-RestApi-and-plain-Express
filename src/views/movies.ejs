@@ -24,20 +24,73 @@
           </nav>
         </div>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-mid-3 col-md col-sm-6">
-              <div class="card">
-                <div class="card-block">
-                  <div class="card-title">
-                    <h4>Movie 1</h4>
+        <main>
+          <div class="album py-5 bg-light">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <% data.forEach((item) => { %>
+                <div class="col" style="display: flex">
+                  <div class="card shadow-sm">
+                    <%if(!item?.image){%>
+                    <svg
+                      class="bd-placeholder-img card-img-top"
+                      width="100%"
+                      height="225"
+                      xmlns="http://www.w3.org/2000/svg"
+                      role="img"
+                      aria-label="Placeholder: Thumbnail"
+                      preserveAspectRatio="xMidYMid slice"
+                      focusable="false"
+                      style="display: flex; padding: 20px"
+                    >
+                      <title>Placeholder</title>
+                      <rect width="100%" height="300px" fill="#55595c" />
+                      <text x="90%" y="50%" fill="#eceeef" dy=".3em"></text>
+                    </svg>
+                    <%} else {%>
+                    <img
+                      style="
+                        position: relative;
+                        max-height: 300px;
+                        padding: 20px;
+                        width: 100%;
+                        justify-content: center;
+                        object-fit: contain;
+                        display: flex;
+                        flex: 1;
+                      "
+                      src="<%=item.image%>"
+                      alt=" image"
+                      srcset=""
+                    />
+                    <%}%>
+                    <div class="card-body">
+                      <p class="card-text"><%=item.description%></p>
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <div class="btn-group">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                          >
+                            Preview
+                          </button>
+  
+                        </div>
+                        <small class="text-muted">
+                          <strong>price <%=item.price %> </strong></small
+                        >
+                      </div>
+                    </div>
                   </div>
-                 <a style="margin-top: 10px;" href="#" class="btn btn-success">click here</a>
                 </div>
+                <% }) %>
               </div>
             </div>
           </div>
-        </div>
+        </main>
+    
     
   </body>
 </html>

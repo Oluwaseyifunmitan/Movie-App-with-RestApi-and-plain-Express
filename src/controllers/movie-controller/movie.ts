@@ -2,23 +2,19 @@ import path from "path";
 import saveFile from "../../models/user/user";
 import { Request, Response } from "express";
 import generateId from "../../../Utils/genId";
-import user from "../../routes/user_route/user_route";
-import movie from "../../routes/movie_route/movie_route";
 
 const users = require(path.resolve(process.cwd(), "database", "database.json"));
 
-export const getMovies = (req: Request, res: Response) => {
+export const getMovies = (req: any, res: any) => {
   try {
-    let movies: any[] = [];
-    users.map((data: any) => {
-      if (data?.Movies?.length > 0) {
-        data.Movies.map((file: any) => {
-          movies.unshift(file);
-        });
-      }
+    const movies: any[] = [];
+    users.forEach((user: any) => {
+      user.Movies.forEach((mov: any) => {
+        movies.push(mov);
+      });
     });
-    // console.log(movies);
-    res.status(200).json(movies);
+    console.log(movies);
+    res.render("movies", { data: movies });
   } catch (error) {
     console.log(error);
   }
@@ -41,42 +37,36 @@ export const getMovie = (req: Request, res: Response) => {
   }
 };
 
-export const createMovie = (req: Request, res: Response) => {
-  //post request
-  //email, movieObjext
-  const { email, Movie } = req.body;
-  console.log(email, Movie);
+export const createMovie = async (req: any, res: Response) => {
+  const movie = req.body;
+  const { email } = req.user;
+  let genId = new generateId();
+  movie.id = genId.gen();
 
-  const userMovieToEdit = users?.filter((userData: any) => {
-    return userData.email == email;
-  });
-
-  if (userMovieToEdit.length > 0) {
-    console.log(true);
-
-    userMovieToEdit[0]?.Movies.unshift(Movie);
-    let newDatabase = users.map((userDatas: any) => {
-      if (userDatas.email == email) {
-        return userMovieToEdit;
+  let personToaddMovie = users.find((user: any) => user.email == email);
+  if (personToaddMovie) {
+    personToaddMovie.Movies.unshift(movie);
+    let newDatabase = users.map((user: any) => {
+      if (user.email == email) {
+        return personToaddMovie;
       } else {
-        return userDatas;
+        return user;
       }
     });
-
-    console.log(users);
-    saveFile(newDatabase[0]);
-
-    return res.status(201).json(newDatabase[0]);
+    res
+      .status(201)
+      .json({ code: 201, message: "movie created successfuly", movie });
+    saveFile(newDatabase);
   } else {
-    console.log("false");
-    res.status(404).json({ code: 404, message: "no user found " });
+    res.status(400).json({ code: 400, message: "could not create movie" });
   }
 };
 
-export const updateMovie = async (req: Request, res: Response) => {
+export const updateMovie = async (req: any, res: Response) => {
   try {
     // console.log(req.body);
-    const { email, Movie } = req.body;
+    const { email } = req.user;
+    const Movie = req.body;
     let movieId = req.params.id;
 
     // console.log(req.params.id, email, data);
@@ -124,8 +114,8 @@ export const deleteMovie = (req: Request, res: Response) => {
       return user;
     });
     saveFile(newDatabase);
-    res.status(200).json({ message: "movie deleted" });
+    res.status(200).json({ code: 200, message: "movie deleted" });
   } catch (error) {
-    res.status(400).json({ message: "not deleted" });
+    res.status(400).json({ code: 400, message: "not deleted" });
   }
 };

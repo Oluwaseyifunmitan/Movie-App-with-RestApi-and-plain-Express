@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateToken = exports.genToken = void 0;
+exports.extractUser = exports.validateToken = exports.genToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -27,7 +27,9 @@ exports.genToken = genToken;
 function validateToken(token) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            return jsonwebtoken_1.default.decode(token);
+            let userToken = jsonwebtoken_1.default.decode(token);
+            console.log(userToken);
+            return userToken;
         }
         catch (error) {
             console.log(error);
@@ -35,3 +37,12 @@ function validateToken(token) {
     });
 }
 exports.validateToken = validateToken;
+const extractUser = (token) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return jsonwebtoken_1.default.decode(token);
+    }
+    catch (error) {
+        return null;
+    }
+});
+exports.extractUser = extractUser;

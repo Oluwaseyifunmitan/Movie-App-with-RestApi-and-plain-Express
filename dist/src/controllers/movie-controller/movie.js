@@ -15,20 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMovie = exports.updateMovie = exports.createMovie = exports.getMovie = exports.getMovies = void 0;
 const path_1 = __importDefault(require("path"));
 const user_1 = __importDefault(require("../../models/user/user"));
+const genId_1 = __importDefault(require("../../../Utils/genId"));
 const users = require(path_1.default.resolve(process.cwd(), "database", "database.json"));
 const getMovies = (req, res) => {
     try {
-        let movies = [];
-        users.map((data) => {
-            var _a;
-            if (((_a = data === null || data === void 0 ? void 0 : data.Movies) === null || _a === void 0 ? void 0 : _a.length) > 0) {
-                data.Movies.map((file) => {
-                    movies.unshift(file);
-                });
-            }
+        const movies = [];
+        users.forEach((user) => {
+            user.Movies.forEach((mov) => {
+                movies.push(mov);
+            });
         });
-        // console.log(movies);
-        res.status(200).json(movies);
+        console.log(movies);
+        res.render("movies", { data: movies });
     }
     catch (error) {
         console.log(error);
@@ -52,40 +50,37 @@ const getMovie = (req, res) => {
     }
 };
 exports.getMovie = getMovie;
-const createMovie = (req, res) => {
-    var _a;
-    //post request
-    //email, movieObjext
-    const { email, Movie } = req.body;
-    console.log(email, Movie);
-    const userMovieToEdit = users === null || users === void 0 ? void 0 : users.filter((userData) => {
-        return userData.email == email;
-    });
-    if (userMovieToEdit.length > 0) {
-        console.log(true);
-        (_a = userMovieToEdit[0]) === null || _a === void 0 ? void 0 : _a.Movies.unshift(Movie);
-        let newDatabase = users.map((userDatas) => {
-            if (userDatas.email == email) {
-                return userMovieToEdit;
+const createMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const movie = req.body;
+    const { email } = req.user;
+    let genId = new genId_1.default();
+    movie.id = genId.gen();
+    let personToaddMovie = users.find((user) => user.email == email);
+    if (personToaddMovie) {
+        personToaddMovie.Movies.unshift(movie);
+        let newDatabase = users.map((user) => {
+            if (user.email == email) {
+                return personToaddMovie;
             }
             else {
-                return userDatas;
+                return user;
             }
         });
-        console.log(users);
-        (0, user_1.default)(newDatabase[0]);
-        return res.status(201).json(newDatabase[0]);
+        res
+            .status(201)
+            .json({ code: 201, message: "movie created successfuly", movie });
+        (0, user_1.default)(newDatabase);
     }
     else {
-        console.log("false");
-        res.status(404).json({ code: 404, message: "no user found " });
+        res.status(400).json({ code: 400, message: "could not create movie" });
     }
-};
+});
 exports.createMovie = createMovie;
 const updateMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log(req.body);
-        const { email, Movie } = req.body;
+        const { email } = req.user;
+        const Movie = req.body;
         let movieId = req.params.id;
         // console.log(req.params.id, email, data);
         let user = users.filter((file) => {
@@ -133,10 +128,10 @@ const deleteMovie = (req, res) => {
             return user;
         });
         (0, user_1.default)(newDatabase);
-        res.status(200).json({ message: "movie deleted" });
+        res.status(200).json({ code: 200, message: "movie deleted" });
     }
     catch (error) {
-        res.status(400).json({ message: "not deleted" });
+        res.status(400).json({ code: 400, message: "not deleted" });
     }
 };
 exports.deleteMovie = deleteMovie;

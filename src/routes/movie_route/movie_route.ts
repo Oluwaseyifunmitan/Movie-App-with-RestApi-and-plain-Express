@@ -6,6 +6,7 @@ import {
   updateMovie,
   getMovie,
 } from "../../controllers/movie-controller/movie";
+import { isAuthenticated } from "../../middleware/isAuthenticated";
 
 const movie = express.Router();
 
@@ -13,7 +14,7 @@ movie.get("/", getMovies);
 
 movie.get("/:id", getMovie);
 
-movie.post("/create", createMovie);
+movie.post("/create", isAuthenticated, createMovie);
 
 movie.put("/update/:id", updateMovie);
 

@@ -29,17 +29,18 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(req.body);
         const { email, password } = req.body;
         const loggedIn = users.filter((user) => user.email == email);
-        //hash the incomming password
-        // compare the new hased password with the old one of the user in the database
         if (loggedIn.length > 0) {
             let hash = yield (0, passwordUtils_1.genPassword)(password);
+            let _id = loggedIn[0]._id;
             if (hash == loggedIn[0].password) {
-                let token = (0, tokenUtils_1.genToken)({ email: email, _id: loggedIn[0]._id });
+                let token = yield (0, tokenUtils_1.genToken)({ email: email, _id: _id });
                 res.cookie("token", token); // set a cokie during login
-                return res.send("you have successfully logged in");
+                return res
+                    .status(200)
+                    .json({ code: 200, message: "you have successfully logged in" });
             }
             else {
-                return res.send("not logged in");
+                return res.status(400).json({ code: 400, message: "not logged in" });
             }
         }
         else {
@@ -68,13 +69,14 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 let user = req.body;
                 let _id = new genId_1.default().gen();
                 user._id = _id;
+                user.Movies = [];
                 users.push(user);
                 (0, user_1.default)(users);
                 // genearate Id for users
                 let token = yield (0, tokenUtils_1.genToken)({ email: email, _id: _id });
                 //console.log(token);
                 res.cookie("token", token);
-                return res.status(200).json({ code: 200, user });
+                return res.status(201).json({ code: 201, message: "please login" });
             }
         }
         catch (error) {
