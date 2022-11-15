@@ -21,6 +21,7 @@
             <a class="nav-link" href="/auth/login">LOGIN</a>
             <a class="nav-link active" href="/movie">MOVIE</a>
             <a class="nav-link" href="/auth/register">REGISTER</a>
+            <a class="nav-link" href="/auth/logout">LOGOUT</a>
           </nav>
         </div>
         </div>
@@ -70,17 +71,14 @@
                         class="d-flex justify-content-between align-items-center"
                       >
                         <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary"
-                          >
-                            Preview
-                          </button>
+                          <button type="button" class="btn btn-danger" onclick="handleDelete()"><a href="/user/dashboard">Delete</a> </button>
+                          <button type="button" class="btn btn-secondary" onclick="handleUpdate()"><a href="/user/dashboard">Edit</a></button>
   
                         </div>
                         <small class="text-muted">
                           <strong>price <%=item.price %> </strong></small
                         >
+
                       </div>
                     </div>
                   </div>

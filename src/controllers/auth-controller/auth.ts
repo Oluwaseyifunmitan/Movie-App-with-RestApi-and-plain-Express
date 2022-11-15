@@ -13,7 +13,6 @@ export const Login = async (req: Request, res: Response) => {
   if (req.method === "GET") {
     return res.render("Login");
   } else {
-    // console.log(req.body);
     const { email, password } = req.body;
     const loggedIn: any = users.filter((user: any) => user.email == email);
     if (loggedIn.length > 0) {
@@ -21,7 +20,7 @@ export const Login = async (req: Request, res: Response) => {
       let _id = loggedIn[0]._id;
       if (hash == loggedIn[0].password) {
         let token = await genToken({ email: email, _id: _id });
-        res.cookie("token", token); // set a cokie during login
+        res.cookie("token", token); // set a cookie during login
 
         return res
           .status(200)
@@ -32,7 +31,6 @@ export const Login = async (req: Request, res: Response) => {
     } else {
       return res.send("no user with this account");
     }
-    // return res.send(loggedIn);
   }
 };
 
@@ -43,7 +41,7 @@ export const Register = async (req: Request, res: Response) => {
     //validate input with joi
     try {
       const { password, email } = req.body;
-      console.log(req.body);
+
       let hash = await genPassword(password);
       req.body.password = hash;
 
@@ -59,7 +57,7 @@ export const Register = async (req: Request, res: Response) => {
         saveFile(users);
         // genearate Id for users
         let token = await genToken({ email: email, _id: _id });
-        //console.log(token);
+
         res.cookie("token", token);
 
         return res.status(201).json({ code: 201, message: "please login" });

@@ -26,7 +26,6 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.render("Login");
     }
     else {
-        // console.log(req.body);
         const { email, password } = req.body;
         const loggedIn = users.filter((user) => user.email == email);
         if (loggedIn.length > 0) {
@@ -34,7 +33,7 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             let _id = loggedIn[0]._id;
             if (hash == loggedIn[0].password) {
                 let token = yield (0, tokenUtils_1.genToken)({ email: email, _id: _id });
-                res.cookie("token", token); // set a cokie during login
+                res.cookie("token", token); // set a cookie during login
                 return res
                     .status(200)
                     .json({ code: 200, message: "you have successfully logged in" });
@@ -46,7 +45,6 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             return res.send("no user with this account");
         }
-        // return res.send(loggedIn);
     }
 });
 exports.Login = Login;
@@ -58,7 +56,6 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //validate input with joi
         try {
             const { password, email } = req.body;
-            console.log(req.body);
             let hash = yield (0, passwordUtils_1.genPassword)(password);
             req.body.password = hash;
             const registeredUser = users.filter((user) => user.email == email);
@@ -74,7 +71,6 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 (0, user_1.default)(users);
                 // genearate Id for users
                 let token = yield (0, tokenUtils_1.genToken)({ email: email, _id: _id });
-                //console.log(token);
                 res.cookie("token", token);
                 return res.status(201).json({ code: 201, message: "please login" });
             }
